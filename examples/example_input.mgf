@@ -1,0 +1,151 @@
+BEGIN IONS
+COMPOUND=GLUCOSAMINATE M+Na
+FORMULA=C6H13NO6
+PARENTMASS=218.06350783609054
+IONIZATION=[M + Na]+
+INCHI=InChI=1S/C6H13NO6/c7-3(6(12)13)5(11)4(10)2(9)1-8/h2-5,8-11H,1,7H2,(H,12,13)
+INCHIKEY=UFYKDFXCZBTLOO-UHFFFAOYSA-N
+SMILES=C(C(C(C(C(C(=O)O)N)O)O)O)O
+INSTRUMENTATION=Orbitrap (LCMS)
+SOURCE=file:/home/kaidu/fingerid/peptides/./gnps-mgf/GNPS-MSMLS.mgf
+MSLEVEL=2
+FILENAME=CCMSLIB00005464381.ms
+PRECURSOR_MZ=218.06350783609054
+PEPMASS=218.06350783609054
+ADDUCT=[M + Na]+
+GROUP=CCMSLIB
+NAME=GLUCOSAMINATE M+Na
+ONLINE_REACTIVITY=[{"reaction_name": "AQC", "filename_contains": "AQC", "functional_group_name": "alcohols", "compound_type": "Educt", "educt_smarts": "[#6X4][OX2H]", "reaction_smarts": "N/A", "delta_mz": "N/A", "linked_ids": []}, {"reaction_name": "AQC", "filename_contains": "AQC", "functional_group_name": "N-hydroxy", "compound_type": "Educt", "educt_smarts": " CC(=O)N(O([#1]))C", "reaction_smarts": "N/A", "delta_mz": "N/A", "linked_ids": []}, {"reaction_name": "AQC", "filename_contains": "AQC", "functional_group_name": "N-hydroxy pyrrole", "compound_type": "Educt", "educt_smarts": "O([#1])n1cccc1", "reaction_smarts": "N/A", "delta_mz": "N/A", "linked_ids": []}, {"reaction_name": "AQC", "filename_contains": "AQC", "functional_group_name": "phenols", "compound_type": "Educt", "educt_smarts": "[OX2H][cX3]:[c]", "reaction_smarts": "N/A", "delta_mz": "N/A", "linked_ids": []}, {"reaction_name": "AQC", "filename_contains": "AQC", "functional_group_name": "amines (no amides)", "compound_type": "Educt", "educt_smarts": "[NX3;H2,H1;!$(NC=O)]", "reaction_smarts": "N/A", "delta_mz": "N/A", "linked_ids": []}]
+RT=nan
+SCANS=1
+54.498268 1599.527344 
+56.647793 1820.495605 
+58.416378 1744.869507 
+60.081589 1637.322388 
+64.047577 1747.344116 
+65.469307 1875.946899 
+65.805984 1809.232056 
+83.197388 1941.987427 
+84.960335 3141.863037 
+85.595619 1981.291138 
+94.466324 1803.473877 
+101.735321 2151.681152 
+107.857788 1827.297241 
+143.031601 18944.205078 
+149.434555 2081.658691 
+158.886093 2225.570312 
+200.052597 6762.973145 
+205.011459 4550.131836 
+206.980072 2301.267334 
+217.105316 17450.425781 
+218.064362 94489.289062 
+218.108673 8656.833984 
+218.21106 2705.658203 
+226.106979 1975.733643 
+END IONS
+
+
+BEGIN IONS
+COMPOUND=Pesticide5_Sulfentrazone_C11H10Cl2F2N4O3S_N-{2,4-Dichloro-5-[4-(difluoromethyl)-3-methyl-5-oxo-4,5-dihydro-1H-1,2,4-triazol-1-yl]phenyl}methanesulfonamide M+H
+FORMULA=C11H10Cl2F2N4O3S
+PARENTMASS=386.98914943209047
+IONIZATION=[M + H]+
+INCHI=InChI=1S/C11H10Cl2F2N4O3S/c1-5-16-19(11(20)18(5)10(14)15)9-4-8(17-23(2,21)22)6(12)3-7(9)13/h3-4,10,17H,1-2H3
+INCHIKEY=OORLZFUTLGXMEF-UHFFFAOYSA-N
+SMILES=CC1=NN(C(=O)N1C(F)F)C2=C(C=C(C(=C2)NS(=O)(=O)C)Cl)Cl
+INSTRUMENTATION=Orbitrap (LCMS)
+SOURCE=file:/home/kaidu/fingerid/fingerid_120/./gnps-mgf/GNPS-COLLECTIONS-PESTICIDES-POSITIVE.mgf
+MSLEVEL=2
+FILENAME=CCMSLIB00001058454.ms
+PRECURSOR_MZ=386.98914943209047
+PEPMASS=386.98914943209047
+ADDUCT=[M + H]+
+GROUP=CCMSLIB
+NAME=Pesticide5_Sulfentrazone_C11H10Cl2F2N4O3S_N-{2,4-Dichloro-5-[4-(difluoromethyl)-3-methyl-5-oxo-4,5-dihydro-1H-1,2,4-triazol-1-yl]phenyl}methanesulfonamide M+H
+ONLINE_REACTIVITY=[{"reaction_name": "AQC", "filename_contains": "AQC", "functional_group_name": "alcohols", "compound_type": "Educt", "educt_smarts": "[#6X4][OX2H]", "reaction_smarts": "N/A", "delta_mz": "N/A", "linked_ids": []}, {"reaction_name": "AQC", "filename_contains": "AQC", "functional_group_name": "N-hydroxy", "compound_type": "Educt", "educt_smarts": " CC(=O)N(O([#1]))C", "reaction_smarts": "N/A", "delta_mz": "N/A", "linked_ids": []}, {"reaction_name": "AQC", "filename_contains": "AQC", "functional_group_name": "N-hydroxy pyrrole", "compound_type": "Educt", "educt_smarts": "O([#1])n1cccc1", "reaction_smarts": "N/A", "delta_mz": "N/A", "linked_ids": []}, {"reaction_name": "AQC", "filename_contains": "AQC", "functional_group_name": "phenols", "compound_type": "Educt", "educt_smarts": "[OX2H][cX3]:[c]", "reaction_smarts": "N/A", "delta_mz": "N/A", "linked_ids": []}, {"reaction_name": "AQC", "filename_contains": "AQC", "functional_group_name": "amines (no amides)", "compound_type": "Educt", "educt_smarts": "[NX3;H2,H1;!$(NC=O)]", "reaction_smarts": "N/A", "delta_mz": "N/A", "linked_ids": []}]
+RT=nan
+SCANS=2
+74.004189 16940.208984 
+76.775955 2348.178955 
+89.66967 2166.203125 
+92.031059 25834.462891 
+101.01368 2406.747803 
+102.010956 3076.382812 
+109.979431 11742.084961 
+111.995636 3953.035889 
+124.137001 2290.187988 
+127.989586 9257.701172 
+136.991013 26855.011719 
+139.00647 27479.1875 
+145.955673 28421.236328 
+146.000214 21077.125 
+149.03894 16484.308594 
+155.000641 125409.296875 
+157.95639 47179.464844 
+163.965698 101019.8125 
+172.967209 81279.914062 
+173.951035 9215.693359 
+173.974792 32240.28125 
+175.966095 8237.478516 
+178.016464 210052.984375 
+180.031631 2607.979004 
+182.011368 19862.328125 
+186.983597 148254.40625 
+190.977859 3290.123291 
+198.946777 115243.195312 
+199.88707 2127.678955 
+200.960922 2562.618408 
+213.992645 68526.171875 
+215.971985 2814.38916 
+218.952835 3650.61084 
+219.445358 2526.024902 
+221.0233 2754.344727 
+223.037186 19176.259766 
+229.989166 2985.592285 
+232.00705 49916.429688 
+245.964569 63206.332031 
+246.9702 12729.96582 
+256.999359 9531.407227 
+258.00592 30865.615234 
+267.99292 4763.134766 
+271.018799 90551.882812 
+272.027374 17791.958984 
+273.035645 369301.8125 
+279.982513 123435.171875 
+286.989929 69096.429688 
+287.998291 12074.630859 
+289.030029 134531.046875 
+289.062866 4307.67334 
+300.965057 2801.724854 
+303.561981 2599.342529 
+306.996918 358722.9375 
+308.004669 218707.40625 
+308.888611 2191.407715 
+322.988953 32810.925781 
+323.960938 2892.763916 
+323.999634 3584.914551 
+325.008667 55063.898438 
+336.989044 33146.34375 
+340.986481 28878.361328 
+366.985107 63179.539062 
+386.986023 793249.0625 
+405.00177 20614.658203 
+END IONS
+
+BEGIN IONS
+PEPMASS=393.3001
+CHARGE=1+
+FEATURE_ID=23619
+SCANS=3
+MSLEVEL=2
+PRECURSOR_MZ=393.3001
+MERGED_STATS=13 / 13 (0 removed due to low quality, 0 removed due to low cosine).
+ONLINE_REACTIVITY=[{"compound_type": "Educt", "reaction_name": "cysteine", "filename_contains": "cysteine", "educt_smarts": "O=C([#6])C1C([#6])O1", "reaction_smarts": "O=C([C])C1C([C])O1.N[C@@H](CS)C(O)=O>>N[C@@H](CSC(C(C([C])=O)O)[C])C(O)=O", "delta_mz": 121.01975, "linked_ids": [23619], "functional_group_name": "epoxyketone"}, {"compound_type": "Educt", "reaction_name": "cysteine", "filename_contains": "cysteine", "educt_smarts": "O=C(O[#6])C([C,#1,N,O])=C([#6,#1,N,O])[#6,#1,O]", "reaction_smarts": "O=C(/C([#1,#6,#7,#8])=C([#1,#6,#8])/[#1,#6,#7,#8])O[#6].N[C@H](C(O)=O)CS>>O=C(O[#6])C([#1,#6,#7,#8])C(SC[C@H](N)C(O)=O)([#1,#6,#7,#8])[#1,#6,#8]", "delta_mz": 121.01975, "linked_ids": [23619], "functional_group_name": "MS-ester"}, {"compound_type": "Educt", "reaction_name": "cysteine", "filename_contains": "cysteine", "educt_smarts": "[#6R][C](=O)[O][CR]", "reaction_smarts": "[#6R]C(O[C][R])=O.N[C@H](C(O)=O)CS>>[#6R]C(SC[C@H](N)C(O)=O)=O", "delta_mz": 121.01975, "linked_ids": [23619], "functional_group_name": "macrocyclic ester"}, {"compound_type": "Educt", "reaction_name": "cysteine", "filename_contains": "cysteine", "educt_smarts": "O=C1C=CCO1", "reaction_smarts": "O=C1C=CCO1.N[C@H](C(O)=O)CS>>O=C2CC(CO2)SC[C@H](N)C(O)=O", "delta_mz": 121.01975, "linked_ids": [23619], "functional_group_name": "MS-g-lactone"}, {"compound_type": "Educt", "reaction_name": "cysteine", "filename_contains": "cysteine", "educt_smarts": "[C]([#1])([#1])=[C]([C,#1])[#6]", "reaction_smarts": "[H]/C([H])=C([C])\\[#1,#6].N[C@@H](C[S])C(O)=O>>N[C@H](C(O)=O)CSC(C([#1,#6])[C])([H])[H]", "delta_mz": 121.01975, "linked_ids": [23619], "functional_group_name": "Terminal Alkene"}, {"compound_type": "Educt", "reaction_name": "cysteine", "filename_contains": "cysteine", "educt_smarts": "O=C1OCC1", "reaction_smarts": "O=C1OCC1.N[C@H](C(O)=O)CS>>O=C(CCO)SC[C@H](N)C(O)=O", "delta_mz": 121.01975, "linked_ids": [23619], "functional_group_name": "b-lactone"}, {"compound_type": "Educt", "reaction_name": "cysteine", "filename_contains": "cysteine", "educt_smarts": "O=c1cccco1", "reaction_smarts": "O=C1C=CC=CO1.N[C@H](C(O)=O)CS>>N[C@@H](CSC(CC=C2)OC2=O)C(O)=O", "delta_mz": 121.01975, "linked_ids": [23619], "functional_group_name": "2H-pyran-2-one"}, {"compound_type": "Educt", "reaction_name": "cysteine", "filename_contains": "cysteine", "educt_smarts": "O=C(C=C1)c2ccccc2C1=O", "reaction_smarts": "O=C(c1c2cccc1)C=CC2=O.N[C@H](C(O)=O)CS>>N[C@H](C(O)=O)CSC3=CC(c4c(C3=O)cccc4)=O", "delta_mz": 121.01975, "linked_ids": [23619], "functional_group_name": "napthoquinone"}, {"compound_type": "Educt", "reaction_name": "cysteine", "filename_contains": "cysteine", "educt_smarts": "[#6,N]C(C([C,#1,N,O])=C([C,#1,O])[#6,#1,N,O])=O", "reaction_smarts": "[#6,#7]C(/C([#1,#6,#7,#8])=C([#1,#6,#7,#8])\\[#1,#6,#8])=O.N[C@H](C(O)=O)CS>>N[C@@H](CSC([#1,#6,#7,#8])(C(C([#6,#7])=O)[#1,#6,#7,#8])[#1,#6,#8])C(O)=O", "delta_mz": 121.01975, "linked_ids": [23619], "functional_group_name": "MS-Ketone/amide"}]
+NAME=Elasnin
+SMILES=CCCCCC(=O)C(CCCC)C1=C(C(=C(C(=O)O1)CCCC)O)CCCC
+ADDUCT=H+
+OLD_SCAN=23619
+145.065 190.0 
+145.1011 700.0 
+146.0742 76.0 
+END IONS

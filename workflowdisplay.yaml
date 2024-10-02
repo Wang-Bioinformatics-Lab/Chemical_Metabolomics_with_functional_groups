@@ -1,19 +1,382 @@
-name: template_nextflow_workflow
+name: Chemical_Metabolomics_With_Functional_Groups
 displayname: STUFF
 Views:
--   name: Summary List
-    displayname: Summary List
-    viewname: summarylist
-    displaytype: datatable
+-   name: section
+    displayname: Analysis with known compounds
+    viewname: section
+    displaytype: section
+
+
+-   name: Enriched Search Results List
+    displayname: Enriched Search Results List
+    viewname: enrichedsummarylist
+    displaytype: datatable_serverbig
     parameters:
-        filename: output/summary.tsv
+        filename: nf_output/analysis_results/enriched_search_results.csv
         columns:
-            -   title: "View LCMS"
-                data: filename
-            -   title: "filename"
-                data: filename
-        columnDefs: '[ {"targets": 0,"data": null,"render": function ( data, type, row, meta ) {
-            return `
-            <a target="_blank" href="/dashboards/lcms?usi=mzspec:GNPS2-${task}:${encodeURIComponent(row["filename"])}">View LCMS - mzspec:GNPS2-${task}:${row["filename"]}</a>
-            `;}}]'
-            
+        -   title: "View Spectra"
+            data: 
+        -   title: "Use ModiFinder"
+            data:
+        -   title: "Query Scan"
+            data: "#Scan#"
+        -   title: "FEATURE_ID"
+            data: FEATURE_ID
+        -   title: "Query File"
+            data: SpectrumFile
+        -   title: "Name"
+            data: Compound_Name
+        -   title: "Precursor m/z"
+            data: SpecMZ
+        -   title: "MassDiff"
+            data: MassDiff
+        -   title: "SpectrumID"
+            data: SpectrumID
+        -   title: "Smiles"
+            data: Smiles
+        -   title: "Cosine"
+            data: MQScore
+        -   title: "adjusted_score"
+            data: adjusted_score
+        -   title: "rank_before"
+            data: rank_before
+        -   title: "rank_after"
+            data: rank_after
+        -   title: "reacted_with"
+            data: reacted_with
+        -   title: "Tanimoto"
+            data: tanimoto
+        columnDefs: '[ 
+            {"targets": 0,"data": null,"render": function ( data, type, row, meta ) {
+        return `
+            <a target="_blank" href="https://metabolomics-usi.gnps2.org/dashinterface/?usi1=mzspec:GNPS2:TASK-${task}-inputspectra/${row["SpectrumFile"]}:scan:${row["#Scan#"]}&usi2=mzspec:GNPS:GNPS-LIBRARY:accession:${row["SpectrumID"]}">View Mirror</a>
+        `;}},
+        {
+            "targets": 1, "data": null, "render": function ( data, type, row, meta ) {
+                return row["Smiles"]? `<a target="_blank" href="https://modifinder.gnps2.org/?USI1=mzspec:GNPS:GNPS-LIBRARY:accession:${row["SpectrumID"]}&USI2=mzspec:GNPS2:TASK-${task}-inputspectra/${row["SpectrumFile"]}:scan:${row["#Scan#"]}&SMILES1=${row["Smiles"]}">Check on ModiFinder</a>` : `<p>Unknown Structure</p>`;
+            }},
+        {"targets": 9,"data": null,"render": function ( data, type, row, meta ) {
+        return `
+            <img src="https://structure.gnps2.org/structureimg?smiles=${row["Smiles"]}"/>
+        `;}},
+        ]'
+
+
+-   name: Analysis Summary
+    displayname: Analysis Summary
+    viewname: analysissummary
+    displaytype: datatable_serverbig
+    parameters:
+        filename: nf_output/analysis_results/analysis_results.csv
+        columns:
+        -   title: "Scan"
+            data: scan
+        -   title: "FEATURE_ID"
+            data: FEATURE_ID
+        -   title: "File"
+            data: file
+        -   title: "Highest Tanimoto"
+            data: highest_tanimoto
+        -   title: "Top 1 Average Tanimoto Before"
+            data: top_1_average_tanimoto_before
+        -   title: "Top 1 Average Tanimoto After"
+            data: top_1_average_tanimoto_after
+        -   title: "Top 5 Average Tanimoto Before"
+            data: top_5_average_tanimoto_before
+        -   title: "Top 5 Average Tanimoto After"
+            data: top_5_average_tanimoto_after
+        -   title: "Top 10 Average Tanimoto Before"
+            data: top_10_average_tanimoto_before
+        -   title: "Top 10 Average Tanimoto After"
+            data: top_10_average_tanimoto_before
+        # -   title: "Top 1 best Tanimoto Before"
+        #     data: top_1_best_tanimoto_before
+        # -   title: "Top 1 best Tanimoto After"
+        #     data: top_1_best_tanimoto_after
+        -   title: "Top 5 best Tanimoto Before"
+            data: top_5_best_tanimoto_before
+        -   title: "Top 5 best Tanimoto After"
+            data: top_5_best_tanimoto_after
+        # -   title: "Top 10 best Tanimoto Before"
+        #     data: top_10_best_tanimoto_before
+        # -   title: "Top 10 best Tanimoto After"
+        #     data: top_10_best_tanimoto_after
+        -   title: "Rank Highest Tanimoto Before"
+            data: rank_highest_tanimoto_before
+        -   title: "Rank Highest Tanimoto After"
+            data: rank_highest_tanimoto_after
+
+
+-   name: Improved Result Summary (Average)
+    displayname: Improved Result Summary (Average)
+    viewname: improvedresultsummaryaverage
+    displaytype: datatable_serverbig
+    parameters:
+        filename: nf_output/analysis_results/improved_results.csv
+        columns:
+        -   title: "Group"
+            data: group
+        -   title: "Improved"
+            data: improved
+        -   title: "Worsened"
+            data: worsened
+        -   title: "Same"
+            data: same
+        -   title: "Average Before"
+            data: average_before
+        -   title: "Average After"
+            data: average_after
+        -   title: "Total"
+            data: total
+        -   title: "Improved Percentage"
+            data: improved_percentage
+        -   title: "Worsened Percentage"
+            data: worsened_percentage
+        -   title: "Same Percentage"
+            data: same_percentage
+        -   title: "Scatter"
+            data: image_path
+        -   title: "Violin"
+            data: violin_path
+        columnDefs: '[
+            {"targets": 10,"data": null,"render": function ( data, type, row, meta ) {
+        return `
+            <img src="/resultfile?task=${task}&file=nf_output/${row["image_path"]}" style="width:450px;">
+        `;}},
+        {"targets": 11,"data": null,"render": function ( data, type, row, meta ) {
+        return `
+            <img src="/resultfile?task=${task}&file=nf_output/${row["violin_path"]}" style="width:450px;">
+        `;}},
+        ]'
+
+
+-   name: Improved Result Summary (Best)
+    displayname: Improved Result Summary (Best)
+    viewname: improvedresultsummarybest
+    displaytype: datatable_serverbig
+    parameters:
+        filename: nf_output/analysis_results/improved_results_best.csv
+        columns:
+        -   title: "Group"
+            data: group
+        -   title: "Improved"
+            data: improved
+        -   title: "Worsened"
+            data: worsened
+        -   title: "Same"
+            data: same
+        -   title: "Best Before"
+            data: best_before
+        -   title: "Best After"
+            data: best_after
+        -   title: "Total"
+            data: total
+        -   title: "Improved Percentage"
+            data: improved_percentage
+        -   title: "Worsened Percentage"
+            data: worsened_percentage
+        -   title: "Same Percentage"
+            data: same_percentage
+        -   title: "Scatter"
+            data: image_path
+        -   title: "Violin"
+            data: violin_path
+        columnDefs: '[
+            {"targets": 10,"data": null,"render": function ( data, type, row, meta ) {
+        return `
+            <img src="/resultfile?task=${task}&file=nf_output/${row["image_path"]}" style="width:450px;">
+        `;}},
+        {"targets": 11,"data": null,"render": function ( data, type, row, meta ) {
+        return `
+            <img src="/resultfile?task=${task}&file=nf_output/${row["violin_path"]}" style="width:450px;">
+        `;}},
+        ]'
+
+-   name: section
+    displayname: Library Search Results
+    viewname: section
+    displaytype: section
+
+-   name: Search Results List
+    displayname: Search Results List
+    viewname: summarylist
+    displaytype: datatable_serverbig #datatable
+    parameters:
+        filename: nf_output/merged_results_with_gnps.tsv
+        columns:
+        -   title: "View Spectra"
+            data: 
+        -   title: "Use ModiFinder"
+            data:
+        -   title: "Query Scan"
+            data: "#Scan#"
+        -   title: "Query File"
+            data: SpectrumFile
+        -   title: "Name"
+            data: Compound_Name
+        -   title: "Ion"
+            data: Ion_Source
+        -   title: "Precursor m/z"
+            data: SpecMZ
+        -   title: "Cosine"
+            data: MQScore
+        -   title: "Shared Peaks"
+            data: SharedPeaks
+        -   title: "MassDiff"
+            data: MassDiff
+        -   title: "SpectrumID"
+            data: SpectrumID
+        -   title: "Smiles"
+            data: Smiles
+        columnDefs: '[ 
+            {"targets": 0,"data": null,"render": function ( data, type, row, meta ) {
+        return `
+            <a target="_blank" href="https://metabolomics-usi.gnps2.org/dashinterface/?usi1=mzspec:GNPS2:TASK-${task}-inputspectra/${row["SpectrumFile"]}:scan:${row["#Scan#"]}&usi2=mzspec:GNPS:GNPS-LIBRARY:accession:${row["SpectrumID"]}">View Mirror</a>
+        `;}},
+        {
+            "targets": 1, "data": null, "render": function ( data, type, row, meta ) {
+                return row["Smiles"]? `<a target="_blank" href="https://modifinder.gnps2.org/?USI1=mzspec:GNPS:GNPS-LIBRARY:accession:${row["SpectrumID"]}&USI2=mzspec:GNPS2:TASK-${task}-inputspectra/${row["SpectrumFile"]}:scan:${row["#Scan#"]}&SMILES1=${row["Smiles"]}">Check on ModiFinder</a>` : `<p>Unknown Structure</p>`;
+            }},
+        {"targets": 11,"data": null,"render": function ( data, type, row, meta ) {
+        return `
+            <img src="https://structure.gnps2.org/structureimg?smiles=${row["Smiles"]}"/>
+        `;}},
+        ]'
+
+-   name: Readjusted Search Results List
+    displayname: Readjusted Search Results List
+    viewname: readjustedsummarylist
+    displaytype: datatable_serverbig #datatable
+    parameters:
+        filename: nf_output/merged_results_with_gnps_adjusted_ranking.tsv
+        columns:
+        -   title: "View Spectra"
+            data: 
+        -   title: "Use ModiFinder"
+            data:
+        -   title: "Query Scan"
+            data: "#Scan#"
+        -   title: "Query File"
+            data: SpectrumFile
+        -   title: "Name"
+            data: Compound_Name
+        -   title: "Ion"
+            data: Ion_Source
+        -   title: "Precursor m/z"
+            data: SpecMZ
+        -   title: "Cosine"
+            data: MQScore
+        -   title: "Shared Peaks"
+            data: SharedPeaks
+        -   title: "MassDiff"
+            data: MassDiff
+        -   title: "SpectrumID"
+            data: SpectrumID
+        -   title: "Smiles"
+            data: Smiles
+        -   title: "adjusted_score"
+            data: adjusted_score
+        -   title: "rank_before"
+            data: rank_before
+        -   title: "reacted_with"
+            data: reacted_with
+        -   title: "rank_after"
+            data: rank_after
+        columnDefs: '[ 
+            {"targets": 0,"data": null,"render": function ( data, type, row, meta ) {
+        return `
+            <a target="_blank" href="https://metabolomics-usi.gnps2.org/dashinterface/?usi1=mzspec:GNPS2:TASK-${task}-inputspectra/${row["SpectrumFile"]}:scan:${row["#Scan#"]}&usi2=mzspec:GNPS:GNPS-LIBRARY:accession:${row["SpectrumID"]}">View Mirror</a>
+        `;}},
+        {
+            "targets": 1, "data": null, "render": function ( data, type, row, meta ) {
+                return row["Smiles"]? `<a target="_blank" href="https://modifinder.gnps2.org/?USI1=mzspec:GNPS:GNPS-LIBRARY:accession:${row["SpectrumID"]}&USI2=mzspec:GNPS2:TASK-${task}-inputspectra/${row["SpectrumFile"]}:scan:${row["#Scan#"]}&SMILES1=${row["Smiles"]}">Check on ModiFinder</a>` : `<p>Unknown Structure</p>`;
+            }},
+        {"targets": 11,"data": null,"render": function ( data, type, row, meta ) {
+        return `
+            <img src="https://structure.gnps2.org/structureimg?smiles=${row["Smiles"]}"/>
+        `;}},
+        ]'
+    
+
+-   name: section
+    displayname: Input Data Extraction
+    viewname: section
+    displaytype: section
+
+
+-   name: Functional Group List
+    displayname: Functional Group List
+    viewname: functionalgrouplist
+    displaytype: datatable_serverbig
+    parameters:
+        filename: nf_output/fgs.csv
+        columns:
+        -   title: "REACTION"
+            data: REACTION
+        -   title: "Functional Group"
+            data: Functional Group
+        -   title: "SMARTS"
+            data: SMARTS
+        -   title: "delta_mz"
+            data: delta_mz
+        -   title: "Substructure ID"
+            data: Substructure ID
+        -   title: "images path"
+            data: "image_dir"
+        -   title: "image"
+            data: "image"
+        columnDefs: '[ 
+            {"targets": 6,"data": null,"render": function ( data, type, row, meta ) {
+        return `
+            <img src="/resultfile?task=${task}&file=nf_output/${row["image_dir"]}" style="width:450px;">
+        `;}},
+        ]'
+
+
+-   name: Known Compounds List
+    displayname: Known Compounds List
+    viewname: knowncompoundslist
+    displaytype: datatable_serverbig
+    parameters:
+        filename: nf_output/knowns.csv
+        columns:
+        -   title: "MGF Path"
+            data: mgf_path
+        -   title: "Name"
+            data: Name
+        -   title: "SMILES"
+            data: SMILES
+        -   title: "Functional Groups"
+            data: FGs
+        -   title: "True Functional Groups"
+            data: true_fgs
+        -   title: "Scan"
+            data: Scan
+        -   title: "Adduct"
+            data: Adduct
+        -   title: "Reaction"
+            data: Reaction
+        -   title: "Feature ID"
+            data: FEATURE_ID
+
+
+-   name: Reactants List
+    displayname: Reactants List
+    viewname: reactantslist
+    displaytype: datatable_serverbig
+    parameters:
+        filename: nf_output/reactants.csv
+        columns:
+        -   title: "MGF Path"
+            data: mgf_path
+        -   title: "Functional Groups"
+            data: FGs
+        -   title: "Scan"
+            data: Scan
+        -   title: "Reaction"
+            data: Reaction
+        -   title: "Feature ID"
+            data: FEATURE_ID
+
+
+

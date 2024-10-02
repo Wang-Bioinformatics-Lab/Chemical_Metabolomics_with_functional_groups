@@ -1,3 +1,6 @@
 [submodule "GNPS2_DeploymentTooling"]
 	path = GNPS2_DeploymentTooling
 	url = https://github.com/Wang-Bioinformatics-Lab/GNPS2_DeploymentTooling.git
+[submodule "bin/LibrarySearch_Workflow"]
+	path = bin/LibrarySearch_Workflow
+	url = git@github.com:Wang-Bioinformatics-Lab/LibrarySearch_Workflow.git

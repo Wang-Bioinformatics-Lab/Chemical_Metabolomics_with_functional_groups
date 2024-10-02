@@ -1,0 +1,17 @@
+REACTION,Functional Group,SMARTS,delta_mz,Substructure ID,image_dir
+cysteine,epoxyketone,O=C([#6])C1C([#6])O1,121.01975,1,images/FG_1.png
+cysteine,MS-ester,"O=C(O[#6])C([C,#1,N,O])=C([#6,#1,N,O])[#6,#1,O]",121.01975,2,images/FG_2.png
+cysteine,macrocyclic ester,[#6R][C](=O)[O][CR],121.01975,3,images/FG_3.png
+cysteine,MS-g-lactone,O=C1C=CCO1,121.01975,4,images/FG_4.png
+cysteine,Terminal Alkene,"[C]([#1])([#1])=[C]([C,#1])[#6]",121.01975,5,images/FG_5.png
+cysteine,b-lactone,O=C1OCC1,121.01975,6,images/FG_6.png
+cysteine,2H-pyran-2-one,O=c1cccco1,121.01975,7,images/FG_7.png
+cysteine,napthoquinone,O=C(C=C1)c2ccccc2C1=O,121.01975,8,images/FG_8.png
+cysteine,MS-Ketone/amide,"[#6,N]C(C([C,#1,N,O])=C([C,#1,O])[#6,#1,N,O])=O",121.01975,9,images/FG_9.png
+hydroxylamine,Ketones,[C][CX3](=O)[C],15.0109,10,images/FG_10.png
+hydroxylamine,Aldheides,O=[C]([#1])[C]([#1])([#1])C,15.0109,11,images/FG_11.png
+AQC,alcohols,[#6X4][OX2H],148.066158,12,images/FG_12.png
+AQC,N-hydroxy, CC(=O)N(O([#1]))C,148.066158,13,images/FG_13.png
+AQC,N-hydroxy pyrrole,O([#1])n1cccc1,148.066158,14,images/FG_14.png
+AQC,phenols,[OX2H][cX3]:[c],148.066158,15,images/FG_15.png
+AQC,amines (no amides),"[NX3;H2,H1;!$(NC=O)]",148.066158,16,images/FG_16.png

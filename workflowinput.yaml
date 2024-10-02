@@ -1,5 +1,5 @@
-workflowname: template_nextflow_workflow
-workflowdescription: template_nextflow_workflow
+workflowname: Chemical_Metabolomics_With_Functional_Groups
+workflowdescription: Chemical_Metabolomics_With_Functional_Groups
 workflowlongdescription: This is a template nextflow workflow for GNPS2
 workflowversion: "0.1"
 workflowfile: nf_workflow.nf
@@ -12,10 +12,94 @@ parameterlist:
 
     - displayname: Input Data Folder
       paramtype: fileselector
-      nf_paramname: input_spectra
-      formplaceholder: Enter the path to data
+      nf_paramname: inputspectra
+      formplaceholder: Enter the path to search data
       formvalue: ""
-      targettaskfolder: input_spectra
+      targettaskfolder: inputspectra
+      optional: false
+      selectsinglefile: false
+      folderunroll: false
+
+    - displayname: With Library Search
+      paramtype: select
+      nf_paramname: with_library_search
+      formvalue: "1"
+      options:
+        - value: "0"
+          display: "No"
+        - value: "1"
+          display: "Yes"
+    
+    - displayname: Libraries for Library Search (if selected)
+      paramtype: section
+
+    - displayname: Input Library Folder
+      paramtype: fileselector
+      nf_paramname: inputlibraries
+      formplaceholder: Enter the path to search libraries
+      formvalue: "LIBRARYLOCATION/LC/LIBRARY"
+      targettaskfolder: inputlibraries
       optional: false
       selectsinglefile: false
       folderunroll: true
+    
+    - displayname: Library Search Result (if no library search)
+      paramtype: section
+
+    - displayname: Input Library Search Result
+      paramtype: fileselector
+      nf_paramname: library_search_result
+      formplaceholder: Enter the path to search library search result
+      formvalue: ""
+      targettaskfolder: library_search_result
+      optional: false
+      selectsinglefile: true
+      folderunroll: false
+    
+    - displayname: Library Minimum Cosine
+      paramtype: text
+      nf_paramname: library_min_cosine
+      formplaceholder: Enter the library_min_cosine
+      formvalue: "0.7"
+
+    - displayname: Library Minimum Matched Peaks
+      paramtype: text
+      nf_paramname: library_min_matched_peaks
+      formplaceholder: Enter the library_min_matched_peaks
+      formvalue: "6"
+    
+    - displayname: analysis parameters
+      paramtype: section
+
+    - displayname: filter_threshold
+      paramtype: text
+      nf_paramname: filter_threshold
+      formplaceholder: Enter the filter threshold
+      formvalue: "0.5"
+    
+    - displayname: Just show results
+      paramtype: section
+
+    - displayname: Just show uploaded results
+      paramtype: select
+      nf_paramname: just_show_results
+      formvalue: "0"
+      options:
+        - value: "0"
+          display: "No"
+        - value: "1"
+          display: "Yes"
+
+    - displayname: Just show library search results
+      paramtype: fileselector
+      nf_paramname: just_results_file
+      formplaceholder: Enter the path the results tar file
+      formvalue: ""
+      targettaskfolder: just_results_file
+      optional: false
+      selectsinglefile: true
+      folderunroll: true
+
+
+
+    

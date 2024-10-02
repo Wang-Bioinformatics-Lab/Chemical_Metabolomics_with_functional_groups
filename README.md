@@ -1,32 +1,11 @@
-# Nextflow Template
-
-To run the workflow to test simply do
-
-```
-make run
-```
-
-To learn NextFlow checkout this documentation:
-
-https://www.nextflow.io/docs/latest/index.html
-
 ## Installation
 
 You will need to have conda, mamba, and nextflow installed to run things locally. 
 
-## GNPS2 Workflow Input information
+### GNPS2 Workflow Input information
 
 Check the definition for the workflow input and display parameters:
 https://wang-bioinformatics-lab.github.io/GNPS2_Documentation/workflowdev/
-
-
-## Deployment to GNPS2
-
-In order to deploy, we have a set of deployment tools that will enable deployment to the various gnps2 systems. To run the deployment, you will need the following setup steps completed:
-
-1. Checked out of the deployment submodules
-1. Conda environment and dependencies
-1. SSH configuration updated
 
 ### Checking out the deployment submodules
 
@@ -36,50 +15,54 @@ You might need to checkout the module, do this by running
 
 ```
 git submodule init
-git submodule update
+git submodule update --init --recursive
 ```
 
-You will also need to specify the user on the server that you've been given that your public key has been associated with. If you want to not enter this every time you do a deployment, you can create a Makefile.credentials file in the deploy_gnps2 folder with the following contents
-
-```
-USERNAME=<enter the username>
-```
-
-### Deployment Dependencies
-
-You will need to install the dependencies in GNPS2_DeploymentTooling/requirements.txt on your own local machine. 
-
-You can find this [here](https://github.com/Wang-Bioinformatics-Lab/GNPS2_DeploymentTooling).
-
-One way to do this is to use conda to create an environment, for example:
-
-```
-conda create -n deploy python=3.8
-pip install -r GNPS2_DeploymentTooling/requirements.txt
-```
-
-### SSH Configuration
-
-Also update your ssh config file to include the following ssh target:
-
-```
-Host ucr-gnps2-dev
-    Hostname ucr-lemon.duckdns.org
+## Input Formatting
+The input MGF File has to prepared with the same criteria as for the library search workflow, However, for the scans with reactivity, the `ONLINE_REACTIVITY` key needs to be added as well.
+The format used to report the reactivity must be an array of dictionary type items described here:
+```json
+[
+    {
+        "compound_type": "Educt", //['Product', 'Educt']
+        "reaction_name": "Hydroxylamine", // name of the reaction
+        "filename_contains": "Hydroxylamine", // ['cysteine', 'AQC', 'Hydroxylamine']
+        "functional_group_name": "Aldheides", // name or an indicator for the functional group smart.
+        "educt_smarts": "O=[C]([#1])[C]([#1])([#1])C", //smart formula of the educt
+        "reaction_smarts": "O=[C]([#1])[C]([#1])([#1])C",
+        "delta_mz": 15.0109,
+        "linked_ids": [
+            5415
+        ]
+    },
+    // next reactions
+]
 ```
 
-### Deploying to Dev Server
 
-To deploy to development, use the following command, if you don't have your ssh public key installed onto the server, you will not be able to deploy.
+To perform analysis, known compounds must be provided, the known compounds need to have the following keys:
+
+* `SMILES`: Contains thr structure of the known compound.
+* `NAME (Optional)`: The name of the compound.
+* `ADDUCT (Optional)`: The adduct of the compound.
+* `FEATURE_ID ('Optional')`: This will be shown in the final data in case a refrence back to the original data is needed.
+
+### Format converter
+if your mgf input does not have the correct formatting, you can use the codes provided in the `src` directory to convert to correct format or check the format.
+
+### Example Input
+Check the `examples` folder for the `example_input.mgf` for an input example.
+
+## Running the project
+To run the project with the library search
 
 ```
-make deploy-dev
+nextflow run nf_workflow.nf --inputspectra {path to input spectra mgfs} --inputlibraries {path to input libraries} --with_library_search 1
 ```
 
-### Deploying to Production Server
-
-To deploy to production, use the following command, if you don't have your ssh public key installed onto the server, you will not be able to deploy.
+If you already have the result of the library search and you want to skip that
 
 ```
-make deploy-prod
+nextflow run nf_workflow.nf --inputspectra {path to input spectra mgfs} --library_search_result {path to library search file} --with_library_search 0
 ```
 
