@@ -15,9 +15,9 @@ from functools import partial
 def get_with_structure(df):
     merged_results_with_gnps = df.copy()
     merged_results_with_gnps = merged_results_with_gnps[merged_results_with_gnps['Smiles'].isna() == False]
+    merged_results_with_gnps['Smiles'] = merged_results_with_gnps['Smiles'].apply(lambda x: x.replace('&gt;', ''))
     merged_results_with_gnps = merged_results_with_gnps[merged_results_with_gnps['Smiles'] != '']
     merged_results_with_gnps = merged_results_with_gnps[merged_results_with_gnps['Smiles'] != ' ']
-    merged_results_with_gnps['Smiles'] = merged_results_with_gnps['Smiles'].apply(lambda x: x.replace('&gt;', ''))
     return merged_results_with_gnps
 
 def handle_group(group):
@@ -87,7 +87,7 @@ def remove_knowns(library_search, knowns, topk=0):
                 print("doesn't have structure")
                 continue
             if mol is None:
-                continue
+                to_drop.append(index)
             if mol.HasSubstructMatch(true_mol) and true_mol.HasSubstructMatch(mol):
                 to_drop.append(index)
     library_search = library_search.drop(to_drop)

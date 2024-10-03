@@ -9,38 +9,51 @@ import os
 from rdkit import RDLogger
 RDLogger.DisableLog('rdApp.*')
 from utils import is_file_match
+from tqdm import tqdm
+from multiprocessing import Pool
+from functools import partial
+
+
+def enrich_group_with_tanimoto(grouped_scan, knowns):
+    name, group = grouped_scan
+    known = knowns[(knowns['Scan'] == name[0]) & (knowns['mgf_path'].apply(lambda x: is_file_match(x, name[1])))]
+    if known.shape[0] == 0:
+        return pd.DataFrame()
+    true_struct = known['SMILES'].values[0]
+    true_mol = Chem.MolFromSmiles(true_struct)
+
+    temp_group = group.copy()
+    # rest index
+    temp_group.reset_index(drop=True, inplace=True)
+    temp_group['tanimoto'] = np.nan
+    temp_group['FEATURE_ID'] = known['FEATURE_ID'].values[0]
+
+    for index, row in temp_group.iterrows():
+        # check if the structure is the same as the true structure
+        mol = Chem.MolFromSmiles(row['Smiles'])
+        if mol is None:
+            continue
+            # calculate the tanimoto similarity
+        fpgen = AllChem.GetRDKitFPGenerator()
+        fps = [fpgen.GetFingerprint(x) for x in [true_mol, mol]]
+        tanimoto = DataStructs.TanimotoSimilarity(fps[0],fps[1])
+        temp_group.loc[index, 'tanimoto'] = tanimoto
+    
+    temp_group = temp_group[temp_group['tanimoto'].isna() == False]
+    return temp_group
 
 def enrich_with_tanimoto(library_search, knowns):
-    new_results = pd.DataFrame()
     grouped = library_search.groupby(['#Scan#','SpectrumFile'])
-    for name, group in grouped:
-        # find the row in knowns that matches the scan number and spectrum file if it exists
-        known = knowns[(knowns['Scan'] == name[0]) & (knowns['mgf_path'].apply(lambda x: is_file_match(x, name[1])))]
-        if known.shape[0] == 0:
-            continue
-        true_struct = known['SMILES'].values[0]
-        true_mol = Chem.MolFromSmiles(true_struct)
+    num_processes = min(5, os.cpu_count())
 
-        temp_group = group.copy()
-        temp_group['tanimoto'] = np.nan
-        temp_group['FEATURE_ID'] = known['FEATURE_ID'].values[0]
-
-        for index, row in group.iterrows():
-            # check if the structure is the same as the true structure
-            mol = Chem.MolFromSmiles(row['Smiles'])
-            if mol is None:
-                continue
-                # calculate the tanimoto similarity
-            fpgen = AllChem.GetRDKitFPGenerator()
-            fps = [fpgen.GetFingerprint(x) for x in [true_mol, mol]]
-            tanimoto = DataStructs.TanimotoSimilarity(fps[0],fps[1])
-            temp_group.loc[index, 'tanimoto'] = tanimoto
-        
-        if new_results.shape[0] == 0:
-            new_results = temp_group
-        else:
-            new_results = pd.concat([new_results, temp_group])
-    return new_results
+    with Pool(num_processes) as p:
+        func = partial(enrich_group_with_tanimoto, knowns=knowns)
+        results = list(tqdm(p.imap(func, grouped), total=len(grouped)))
+        p.close()
+        p.join()
+    
+    enriched_library_search = pd.concat(results, ignore_index=True)
+    return enriched_library_search
 
 def get_analysis_result(enriched_library_search, col_name):
     analysis_results = pd.DataFrame()
@@ -59,8 +72,12 @@ def get_analysis_result(enriched_library_search, col_name):
             row[f'top_{k}_average_tanimoto_after'] = average_tanimoto_after
             row[f'top_{k}_best_tanimoto_before'] = group_before[col_name].max()
             row[f'top_{k}_best_tanimoto_after'] = group_after[col_name].max()
-
-        row[f'rank_highest_tanimoto_before'] = group[group[col_name] == highest_tanimoto].iloc[0]['rank_before']
+        try:
+            row[f'rank_highest_tanimoto_before'] = group[group[col_name] == highest_tanimoto].iloc[0]['rank_before']
+        except:
+            print(f'Error in {name}, col_name: {col_name}, highest_tanimoto: {highest_tanimoto}')
+            print(group)
+            raise Exception(f'Error in {name}')
         row[f'rank_highest_tanimoto_after'] = group[group[col_name] == highest_tanimoto].iloc[0]['rank_after']
         analysis_results = pd.concat([analysis_results, pd.DataFrame([row])], ignore_index=True)
     return analysis_results
