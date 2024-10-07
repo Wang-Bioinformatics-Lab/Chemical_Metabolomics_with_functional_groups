@@ -79,6 +79,9 @@ def remove_knowns(library_search, knowns, topk=0):
         true_struct = known['SMILES'].values[0]
         true_mol = Chem.MolFromSmiles(true_struct)
 
+        if true_mol is None:
+            to_drop.extend(group.index)
+
         for index, row in group.iterrows():
             # check if the structure is the same as the true structure
             try:
@@ -88,6 +91,7 @@ def remove_knowns(library_search, knowns, topk=0):
                 continue
             if mol is None:
                 to_drop.append(index)
+                continue
             if mol.HasSubstructMatch(true_mol) and true_mol.HasSubstructMatch(mol):
                 to_drop.append(index)
     library_search = library_search.drop(to_drop)
