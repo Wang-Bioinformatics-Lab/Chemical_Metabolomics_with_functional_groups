@@ -63,7 +63,7 @@ def add_adjusted_score(df, reactants, all_fgs, and_order_strategy=True):
     for name, group in tqdm(grouped):
         reacted = reactants[(reactants['Scan'] == name[0]) & (reactants['mgf_path'].apply(lambda x: is_file_match(x, name[1])))]
         if reacted.empty:
-            print(name, (reactants['Scan'] == name[0]).sum())
+            # print(name, (reactants['Scan'] == name[0]).sum())
             continue
         reactions = reacted['Reaction'].values[0]
         reacted_fgs = reacted['FGs'].values[0]
@@ -120,6 +120,7 @@ if __name__ == "__main__":
     fgs = pd.read_csv(args.fgs)
     and_order_strategy = args.and_order_strategy
     result = main(library_search, reactants, fgs, and_order_strategy)
+    print(len(result))
     result.to_csv(args.adjusted_ranking_path, sep='\t', index=False)
 
     # select only the reactants

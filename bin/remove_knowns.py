@@ -11,6 +11,7 @@ RDLogger.DisableLog('rdApp.*')
 from utils import is_file_match
 import multiprocessing as mp
 from functools import partial
+from tqdm import tqdm
 
 def get_with_structure(df):
     merged_results_with_gnps = df.copy()
@@ -47,7 +48,7 @@ def handle_group(group):
                         to_drop.add(index2)
     return to_drop
 
-def remove_duplicates(with_structure, num_processes=5):
+def remove_duplicates(with_structure, num_processes=65):
     # with_structure = get_with_structure(df)
     to_drop = set()
     grouped = with_structure.groupby(['#Scan#', 'SpectrumFile'])
@@ -71,7 +72,7 @@ def remove_knowns(library_search, knowns, topk=0):
     # for each result of the library search, check if the matched structure is the same as its true structure
     grouped = library_search.groupby(['#Scan#','SpectrumFile'])
     to_drop = []
-    for name, group in grouped:
+    for name, group in tqdm(grouped):
         # find the row in knowns that matches the scan number and spectrum file if it exists
         known = knowns[(knowns['Scan'] == name[0]) & (knowns['mgf_path'].apply(lambda x: is_file_match(x, name[1])))]
         if known.shape[0] == 0:

@@ -107,51 +107,51 @@ Views:
             data: rank_highest_tanimoto_after
 
 
--   name: Improved Result Summary (Average)
-    displayname: Improved Result Summary (Average)
-    viewname: improvedresultsummaryaverage
-    displaytype: datatable_serverbig
-    parameters:
-        filename: nf_output/analysis_results/improved_results.csv
-        columns:
-        -   title: "Group"
-            data: group
-        -   title: "Improved"
-            data: improved
-        -   title: "Worsened"
-            data: worsened
-        -   title: "Same"
-            data: same
-        -   title: "Average Before"
-            data: average_before
-        -   title: "Average After"
-            data: average_after
-        -   title: "Total"
-            data: total
-        -   title: "Improved Percentage"
-            data: improved_percentage
-        -   title: "Worsened Percentage"
-            data: worsened_percentage
-        -   title: "Same Percentage"
-            data: same_percentage
-        -   title: "Scatter"
-            data: image_path
-        -   title: "Violin"
-            data: violin_path
-        columnDefs: '[
-            {"targets": 10,"data": null,"render": function ( data, type, row, meta ) {
-        return `
-            <img src="/resultfile?task=${task}&file=nf_output/${row["image_path"]}" style="width:450px;">
-        `;}},
-        {"targets": 11,"data": null,"render": function ( data, type, row, meta ) {
-        return `
-            <img src="/resultfile?task=${task}&file=nf_output/${row["violin_path"]}" style="width:450px;">
-        `;}},
-        ]'
+# -   name: Improved Result Summary (Average)
+#     displayname: Improved Result Summary (Average)
+#     viewname: improvedresultsummaryaverage
+#     displaytype: datatable_serverbig
+#     parameters:
+#         filename: nf_output/analysis_results/improved_results.csv
+#         columns:
+#         -   title: "Group"
+#             data: group
+#         -   title: "Improved"
+#             data: improved
+#         -   title: "Worsened"
+#             data: worsened
+#         -   title: "Same"
+#             data: same
+#         -   title: "Average Before"
+#             data: average_before
+#         -   title: "Average After"
+#             data: average_after
+#         -   title: "Total"
+#             data: total
+#         -   title: "Improved Percentage"
+#             data: improved_percentage
+#         -   title: "Worsened Percentage"
+#             data: worsened_percentage
+#         -   title: "Same Percentage"
+#             data: same_percentage
+#         -   title: "Scatter"
+#             data: image_path
+#         -   title: "Violin"
+#             data: violin_path
+#         columnDefs: '[
+#             {"targets": 10,"data": null,"render": function ( data, type, row, meta ) {
+#         return `
+#             <img src="/resultfile?task=${task}&file=nf_output/${row["image_path"]}" style="width:450px;">
+#         `;}},
+#         {"targets": 11,"data": null,"render": function ( data, type, row, meta ) {
+#         return `
+#             <img src="/resultfile?task=${task}&file=nf_output/${row["violin_path"]}" style="width:450px;">
+#         `;}},
+#         ]'
 
 
--   name: Improved Result Summary (Best)
-    displayname: Improved Result Summary (Best)
+-   name: Improved Result Summary
+    displayname: Improved Result Summary
     viewname: improvedresultsummarybest
     displaytype: datatable_serverbig
     parameters:

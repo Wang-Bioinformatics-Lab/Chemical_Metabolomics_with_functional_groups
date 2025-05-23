@@ -184,10 +184,15 @@ def draw_scatter(analysis_results, name = 1, output_path='.'):
         ax2.text(index_j*0.7, changed[f'{name}_{j}'].mean(), f'{changed[f"{name}_{j}"].mean():.2f}', ha='center', va='bottom', fontsize=font_size)
     ax2.spines['right'].set_visible(False)
     ax2.spines['top'].set_visible(False)
+    # set ax2 y limit to 0 to 1
+    ax2.set_ylim(0, 1)
+    # show y ticks at 0 and 1
+    ax2.set_yticks([0, 0.5, 1])
+    ax2.set_yticklabels([0, 0.5, 1], fontsize=font_size)
+
     ax2.set_xticks([0, 1*0.7])
     ax2.set_xticklabels(['Before', 'After'], fontsize=font_size)
     # remove y ticks
-    ax2.set_yticks([])
     fig2.savefig(os.path.join(output_path, f'{name}_violin.png'), bbox_inches='tight')
     fig2.savefig(os.path.join(output_path, f'{name}_violin.svg'), bbox_inches='tight')
 
@@ -237,8 +242,10 @@ def draw_scatter_rank(analysis_results, name = 1, output_path='.'):
         ax2.text(index_j*0.7, changed[f'{name}_{j}'].mean(), f'{changed[f"{name}_{j}"].mean():.2f}', ha='center', va='bottom', fontsize=font_size)
     ax2.set_xticks([0, 1*0.7])
     ax2.set_xticklabels(['Before', 'After'], fontsize=font_size)
-    # remove y ticks
-    ax2.set_yticks([])
+    # set y limit to 0 to max_rank
+    ax2.set_ylim(0, max_rank)
+    ax2.set_yticks(np.arange(0, max_rank + 5, 5))
+    ax2.set_yticklabels(np.arange(0, max_rank + 5, 5), fontsize=font_size)
     ax2.spines['right'].set_visible(False)
     ax2.spines['top'].set_visible(False)
     fig2.savefig(os.path.join(output_path, 'rank_tanimoto_violin.png'), bbox_inches='tight')
